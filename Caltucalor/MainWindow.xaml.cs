@@ -89,23 +89,22 @@ namespace Caltucalor
             return 0.0;
         }
 
-        private double Calculate(List<string> expressionListBuffer)
+        private void CalculateFirstPriority(List<string> expressionListBuffer)
         {
             double temp = 0.0;
-
             try
             {
-                if (expressionListBuffer.Count == 1)
-                    return Convert.ToDouble(expressionListBuffer[0]); // If in expression line we have only one number
-
                 for (int i = 1; i < expressionListBuffer.Count - 1; i += 2)
                 {
-                    temp = CalculateSubExpression(expressionListBuffer[i],
-                            Convert.ToDouble(expressionListBuffer[i - 1]), Convert.ToDouble(expressionListBuffer[i + 1]));
+                    if (expressionListBuffer[i] == "*" || expressionListBuffer[i] == "/")
+                    {
+                        temp = CalculateSubExpression(expressionListBuffer[i],
+                                Convert.ToDouble(expressionListBuffer[i - 1]), Convert.ToDouble(expressionListBuffer[i + 1]));
 
-                    expressionListBuffer[i - 1] = " ";
-                    expressionListBuffer[i] = " ";
-                    expressionListBuffer[i + 1] = temp.ToString();
+                        expressionListBuffer[i - 1] = " ";
+                        expressionListBuffer[i] = " ";
+                        expressionListBuffer[i + 1] = temp.ToString();
+                    }
                 }
             }
             catch (Exception ex)
@@ -113,8 +112,34 @@ namespace Caltucalor
                 throw ex;
             }
 
-            expressionListBuffer.Clear();
-            return temp;
+            expressionListBuffer.RemoveAll(x => x == " ");
+        }
+
+        private void CalculateSecondPriority(List<string> expressionListBuffer)
+        {
+            double temp = 0.0;
+
+            try
+            {
+                if (expressionListBuffer.Count != 1) 
+                { 
+                    for (int i = 1; i < expressionListBuffer.Count - 1; i += 2)
+                    {
+                        temp = CalculateSubExpression(expressionListBuffer[i],
+                                Convert.ToDouble(expressionListBuffer[i - 1]), Convert.ToDouble(expressionListBuffer[i + 1]));
+
+                        expressionListBuffer[i - 1] = " ";
+                        expressionListBuffer[i] = " ";
+                        expressionListBuffer[i + 1] = temp.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            expressionListBuffer.RemoveAll(x => x == " ");
         }
 
         public double GetCalculated()
@@ -123,7 +148,6 @@ namespace Caltucalor
 
             try
             {
-                expressionListBuffer.RemoveAll(x => x == ""); // Clear list from this  ""
 
                 if (expressionListBuffer.Last().Length == 1) // If expression line has view: "1 + 2 + 3 +"
                 {
@@ -131,13 +155,17 @@ namespace Caltucalor
                         expressionListBuffer.RemoveAt(expressionListBuffer.Count-1);
                 }
 
+                if (expressionListBuffer.Contains("*") || expressionListBuffer.Contains("/"))
+                    CalculateFirstPriority(expressionListBuffer);
+
+                CalculateSecondPriority(expressionListBuffer);
             }
             catch(DivideByZeroException ex)
             {
                 throw ex;
             }
 
-            return Calculate(expressionListBuffer);
+            return Convert.ToDouble(expressionListBuffer.First());
         }
     }
 
