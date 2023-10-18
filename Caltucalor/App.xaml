@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:Caltucalor"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        
+        <Style x:Key="StyleButton">
+            <Setter Property="Control.FontSize" Value="20"/>
+            <Setter Property="Control.Margin" Value="1"/>
+        </Style>
+        
     </Application.Resources>
 </Application>

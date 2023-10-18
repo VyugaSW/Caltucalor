@@ -19,6 +19,7 @@ namespace Caltucalor
     /// Interaction logic for MainWindow.xaml
     /// </summary>
 
+
     internal class CalculateString
     {
         List<string> _expressionList;
@@ -73,91 +74,70 @@ namespace Caltucalor
 
         private double CalculateSubExpression(string operation, double number1, double number2)
         {
-            try
+            switch (operation)
             {
-                switch (operation)
-                {
-                    case "+":
-                        return number1 + number2;
-                    case "-":
-                        return number1 - number2;
-                    case "*":
-                        return number1 * number2;
-                    case "/":
-                        return number1 / number2;
-                }
+                case "+":
+                    return number1 + number2;
+                case "-":
+                    return number1 - number2;
+                case "*":
+                    return number1 * number2;
+                case "/":
+                    return number1 / number2;
             }
-            catch(DivideByZeroException ex) { throw ex; }
 
             return 0.0;
         }
 
-        private void CalculateAndReplaceMultDev(List<string> expressionListBuffer)
+        private double Calculate(List<string> expressionListBuffer)
         {
             double temp = 0.0;
+
             try
             {
+                if (expressionListBuffer.Count == 1)
+                    return Convert.ToDouble(expressionListBuffer[0]); // If in expression line we have only one number
+
                 for (int i = 1; i < expressionListBuffer.Count - 1; i += 2)
                 {
-                    if (expressionListBuffer[i] == "*" || expressionListBuffer[i] == "/")
-                    {
-                        temp = CalculateSubExpression(expressionListBuffer[i],
+                    temp = CalculateSubExpression(expressionListBuffer[i],
                             Convert.ToDouble(expressionListBuffer[i - 1]), Convert.ToDouble(expressionListBuffer[i + 1]));
 
-                        expressionListBuffer[i - 1] = " ";
-                        expressionListBuffer[i] = temp.ToString();
-                        expressionListBuffer[i + 1] = " ";
-                    }
+                    expressionListBuffer[i - 1] = " ";
+                    expressionListBuffer[i] = " ";
+                    expressionListBuffer[i + 1] = temp.ToString();
                 }
-                expressionListBuffer.RemoveAll(x => x == " ");
-
             }
-            catch(DivideByZeroException ex)
+            catch (Exception ex)
             {
                 throw ex;
-            }
-        }
-
-        private double CalculateAddSubst(List<string> expressionListBuffer)
-        {
-            double temp = 0.0;
-
-            if (expressionListBuffer.Count == 1)
-                return Convert.ToDouble(expressionListBuffer[0]); // If in expression line we have only one number
-
-            for(int i = 1; i < expressionListBuffer.Count - 1; i += 2)
-            {
-                temp = CalculateSubExpression(expressionListBuffer[i],
-                        Convert.ToDouble(expressionListBuffer[i - 1]), Convert.ToDouble(expressionListBuffer[i + 1]));
-
-                expressionListBuffer[i - 1] = " ";
-                expressionListBuffer[i] = " ";
-                expressionListBuffer[i + 1] = temp.ToString();
             }
 
             expressionListBuffer.Clear();
             return temp;
         }
 
-        public double Calculate()
+        public double GetCalculated()
         {
             List<string> expressionListBuffer = _expressionList;
+
             try
             {
-                expressionListBuffer.RemoveAll(x => x == "");
+                expressionListBuffer.RemoveAll(x => x == ""); // Clear list from this  ""
 
-                if (!IsDigitStr(expressionListBuffer.Last())) // If expression line has view: "1 + 2 + 3 +"
-                    expressionListBuffer.RemoveAt(expressionListBuffer.Count-1);
+                if (expressionListBuffer.Last().Length == 1) // If expression line has view: "1 + 2 + 3 +"
+                {
+                    if (!Char.IsDigit(Convert.ToChar(expressionListBuffer.Last())))
+                        expressionListBuffer.RemoveAt(expressionListBuffer.Count-1);
+                }
 
-                if (expressionListBuffer.Contains("*") || expressionListBuffer.Contains("/"))
-                    CalculateAndReplaceMultDev(expressionListBuffer);
             }
             catch(DivideByZeroException ex)
             {
                 throw ex;
             }
 
-            return CalculateAddSubst(expressionListBuffer);
+            return Calculate(expressionListBuffer);
         }
     }
 
@@ -228,11 +208,11 @@ namespace Caltucalor
             try
             {
                 calculate = new CalculateString(_proccess);
-                Result.Text = calculate.Calculate().ToString();
+                Result.Text = calculate.GetCalculated().ToString();
             }
-            catch(DivideByZeroException)
+            catch (Exception ex)
             {
-                Result.Text = "ERROR (Divide by zero)";
+                Result.Text = ex.Message;
             }
         }
 

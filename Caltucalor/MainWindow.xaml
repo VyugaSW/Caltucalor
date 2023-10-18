@@ -24,39 +24,43 @@
         </Grid.RowDefinitions>
 
         <!-- Line of process (all operations) -->
-        <TextBox x:Name="Proccess" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+        <TextBox x:Name="Proccess" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" 
+                 HorizontalAlignment="Right" VerticalAlignment="Center" 
+                 FontSize="15"/>
         
         <!-- Line of result -->
-        <TextBox x:Name="Result" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <TextBox x:Name="Result" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" 
+                 HorizontalAlignment="Right" VerticalAlignment="Center"
+                 FontSize="30"/>
         
         <!-- Button "=" -->
-        <Button  Content ="=" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Click="Button_Click_Equals" />
+        <Button  Content ="=" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Click="Button_Click_Equals"  Style="{StaticResource StyleButton}"/>
         
         <!-- First Column (or zero column)-->
-        <Button  Content ="CE" Grid.Row="2" Grid.Column="0" Click="Button_Click_CE"  />
-        <Button  Content ="7" Grid.Row="3" Grid.Column="0" Click="Button_Click_Num7" />
-        <Button  Content ="4" Grid.Row="4" Grid.Column="0" Click="Button_Click_Num4" />
-        <Button  Content ="1" Grid.Row="5" Grid.Column="0" Click="Button_Click_Num1" />
-        <Button  Content ="." Grid.Row="6" Grid.Column="0" Click="Button_Click_Point" />
+        <Button  Content ="CE" Grid.Row="2" Grid.Column="0" Click="Button_Click_CE"  Style="{StaticResource StyleButton}"/>
+        <Button  Content ="7" Grid.Row="3" Grid.Column="0" Click="Button_Click_Num7" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="4" Grid.Row="4" Grid.Column="0" Click="Button_Click_Num4" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="1" Grid.Row="5" Grid.Column="0" Click="Button_Click_Num1" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="." Grid.Row="6" Grid.Column="0" Click="Button_Click_Point" Style="{StaticResource StyleButton}"/>
 
         <!-- Second Column (or first column)-->
-        <Button  Content ="C" Grid.Row="2" Grid.Column="1" Click="Button_Click_C" />
-        <Button  Content ="8" Grid.Row="3" Grid.Column="1" Click="Button_Click_Num8" />
-        <Button  Content ="5" Grid.Row="4" Grid.Column="1" Click="Button_Click_Num5" />
-        <Button  Content ="2" Grid.Row="5" Grid.Column="1" Click="Button_Click_Num2" />
-        <Button  Content ="0" Grid.Row="6" Grid.Column="1" Click="Button_Click_Num0" />
+        <Button  Content ="C" Grid.Row="2" Grid.Column="1" Click="Button_Click_C" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="8" Grid.Row="3" Grid.Column="1" Click="Button_Click_Num8" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="5" Grid.Row="4" Grid.Column="1" Click="Button_Click_Num5" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="2" Grid.Row="5" Grid.Column="1" Click="Button_Click_Num2" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="0" Grid.Row="6" Grid.Column="1" Click="Button_Click_Num0" Style="{StaticResource StyleButton}"/>
 
         <!-- Third Column (or second column)-->
-        <Button  Content ="&lt;" Grid.Row="2" Grid.Column="2" Click="Button_Click_Less" />
-        <Button  Content ="9" Grid.Row="3" Grid.Column="2"    Click="Button_Click_Num9" />
-        <Button  Content ="6" Grid.Row="4" Grid.Column="2"    Click="Button_Click_Num6" />
-        <Button  Content ="3" Grid.Row="5" Grid.Column="2"    Click="Button_Click_Num3" />
+        <Button  Content ="&lt;" Grid.Row="2" Grid.Column="2" Click="Button_Click_Less" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="9" Grid.Row="3" Grid.Column="2"    Click="Button_Click_Num9" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="6" Grid.Row="4" Grid.Column="2"    Click="Button_Click_Num6" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="3" Grid.Row="5" Grid.Column="2"    Click="Button_Click_Num3" Style="{StaticResource StyleButton}"/>
 
         <!-- Fourth Column (or third column)-->
-        <Button  Content ="/" Grid.Row="2" Grid.Column="3" Click="Button_Click_Devide" />
-        <Button  Content ="*" Grid.Row="3" Grid.Column="3" Click="Button_Click_Mult" />
-        <Button  Content ="-" Grid.Row="4" Grid.Column="3" Click="Button_Click_Subtract" />
-        <Button  Content ="+" Grid.Row="5" Grid.Column="4" Click="Button_Click_Add" />
+        <Button  Content ="/" Grid.Row="2" Grid.Column="3" Click="Button_Click_Devide" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="*" Grid.Row="3" Grid.Column="3" Click="Button_Click_Mult" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="-" Grid.Row="4" Grid.Column="3" Click="Button_Click_Subtract" Style="{StaticResource StyleButton}"/>
+        <Button  Content ="+" Grid.Row="5" Grid.Column="4" Click="Button_Click_Add" Style="{StaticResource StyleButton}"/>
 
 
     </Grid>
